@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const express = require("express");
 const mongoose = require("mongoose");
 const Article = require("./models/article");
@@ -5,7 +7,7 @@ const articleRouter = require("./routes/articles");
 const methodOverride = require("method-override");
 const app = express();
 
-mongoose.connect("mongodb://localhost/blog", {
+mongoose.connect(process.env.DB_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true,
@@ -22,4 +24,4 @@ app.get("/", async (req, res) => {
   res.render("articles/index", { articles: articles });
 });
 
-app.listen(process.env.PORT || 5000);
+app.listen(process.env.PORT);
